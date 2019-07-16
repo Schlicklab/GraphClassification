@@ -28,12 +28,16 @@ First_two_coeff = coeff(:,1:2);
 Reduced_Params = Params_norm*First_two_coeff;
 writematrix([GraphIDs Reduced_Params],'TreeGraphParams_pca.txt','Delimiter','tab');% change the name of the file to be Tree or Dual
 
-% cmds on parameters to reduce to two dimensions - cannot be done for Dual
-% Graphs
+% cmds on parameters to reduce to two dimensions
 dis_temp = pdist(Params_norm);
+%dis_temp = pdist(Params_norm(1:17876,:)); % for dual graphs upto 8
+%vertices
 dis = squareform(dis_temp);
 [CMDS_Params,e] = cmdscale(dis,2);
 writematrix([GraphIDs CMDS_Params],'TreeGraphParams_cmds.txt','Delimiter','tab');
+%writematrix([GraphIDs(1:17876)
+%CMDS_Params],'DualGraphParams_8Vcmds.txt','Delimiter','tab'); % for dual graphs upto 8
+%vertices
 
 
 function val = calcParams(filename,n)
