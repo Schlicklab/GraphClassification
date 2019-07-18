@@ -31,4 +31,10 @@ end
 
 Loss_percentage
 
-mean(Loss_percentage)
+A=100 - mean(Loss_percentage)*100;
+
+B=100 - min(Loss_percentage)*100;
+
+C=100 - max(Loss_percentage)*100;
+
+[A' B' C']
