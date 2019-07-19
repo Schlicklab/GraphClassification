@@ -4,7 +4,7 @@ fclose(fileID);
 Params_existing=[lines_pca{2} lines_pca{3}];
 Class_existing=[lines_pca{4}];
 
-Loss_percentage=zeros(10,15);
+Loss_percentage=zeros(10,20);
 
 for trial = 1:10,
     
@@ -19,11 +19,11 @@ for trial = 1:10,
     Params=[Params_existing;Params_nonexisting];
     Class=[Class_existing;Class_nonexisting];
 
-    for k = 1:15,
+    for k = 1:20,
         
         trial, k
        
-        Mdl = fitcknn(Params,Class,'NumNeighbors',k,'Leaveout','on');
+        Mdl = fitcknn(Params,Class,'NumNeighbors',k,'Kfold',10);
         Loss_percentage(trial,k)=Mdl.kfoldLoss();
         
     end
