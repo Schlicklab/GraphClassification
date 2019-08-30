@@ -1,4 +1,4 @@
-fileID=fopen('DualExisting_pca.txt','r'); % change this according to what you want to classify
+fileID=fopen('TreeExisting_pca.txt','r'); % change this according to what you want to classify
 lines_pca=textscan(fileID,'%s%f%f%d');
 fclose(fileID);
 Params_existing=[lines_pca{2} lines_pca{3}];
@@ -8,7 +8,7 @@ Loss_percentage=zeros(10,20);
 
 for trial = 1:10,
     
-    file=sprintf('DualNonExisting_pca_%d.txt',trial); % change this according to what you want to classify
+    file=sprintf('TreeNonExisting_pca_%d.txt',trial); % change this according to what you want to classify
     fileID=fopen(file,'r'); % change this according to what you want to classify
     lines_pca=textscan(fileID,'%s%f%f%d');
     fclose(fileID);
@@ -23,7 +23,8 @@ for trial = 1:10,
         
         trial, k
        
-        Mdl = fitcknn(Params,Class,'NumNeighbors',k,'Kfold',10);
+        %Mdl = fitcknn(Params,Class,'NumNeighbors',k,'KFold',10);
+        Mdl = fitcknn(Params,Class,'NumNeighbors',k,'LeaveOut','on');
         Loss_percentage(trial,k)=Mdl.kfoldLoss();
         
     end
