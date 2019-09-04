@@ -13,7 +13,7 @@ GraphIDs=string(lines_pca{1});
 Params = [lines_pca{2} lines_pca{3}];
 
 fileID=fopen('DualExisting_pca.txt','r'); % change to read whatever parameters you want
-lines_pca=textscan(fileID,'%s%f%f');
+lines_pca=textscan(fileID,'%s%f%f%f');
 fclose(fileID);
 existingIDs=string(lines_pca{1});
 existingParams = [lines_pca{2} lines_pca{3}];
@@ -67,6 +67,19 @@ if count < N-count % RNA like points are indexed 1
     idx(idx==3)=1;
 end
 
+% Find correctly classified and misclassified graphIDs
+correctID = [];
+misclassifyID = [];
+for i = 1:N
+    if (idx(IdNo(i))==1)
+        correctID = [correctID; existingIDs(i)];
+    else
+        misclassifyID = [misclassifyID; existingIDs(i)];
+    end
+end
+writematrix(correctID,'DualCorrectID_PAM_lin.txt','Delimiter','tab');
+writematrix(misclassifyID,'DualMisclassifyID_PAM_lin.txt','Delimiter','tab');
+
 p_PAM_lin = sum(idx(:) == 1)/length(idx);
 q_PAM_lin = sum(idx(:) == 2)/length(idx);
 c_PAM_lin = max(count/N, 1-count/N);
@@ -91,7 +104,7 @@ GraphIDs=string(lines_pca{1});
 Params = [lines_pca{2} lines_pca{3}];
 
 fileID=fopen('DualExisting_pca_poly.txt','r'); %change to read whatever parameters you want
-lines_pca=textscan(fileID,'%s%f%f');
+lines_pca=textscan(fileID,'%s%f%f%f');
 fclose(fileID);
 existingIDs=string(lines_pca{1});
 existingParams = [lines_pca{2} lines_pca{3}];
@@ -129,6 +142,7 @@ set(gca,'XTickLabel',a,'fontsize',30);
 legend('RNA Like', 'nonRNA Like', 'Existing', 'Centroids', 'FontSize', 30);
 hold off;
 
+
 % K-medoids clustering on the data - by default it is PAM
 [idx,C] = kmedoids(Params,2);
 count = 0;
@@ -143,6 +157,19 @@ if count < N-count % RNA like points are indexed 1
     idx(idx==1)=2;
     idx(idx==3)=1;
 end
+
+% Find correctly classified and misclassified graphIDs
+correctID = [];
+misclassifyID = [];
+for i = 1:N
+    if (idx(IdNo(i))==1)
+        correctID = [correctID; existingIDs(i)];
+    else
+        misclassifyID = [misclassifyID; existingIDs(i)];
+    end
+end
+writematrix(correctID,'DualCorrectID_PAM_poly.txt','Delimiter','tab');
+writematrix(misclassifyID,'DualMisclassifyID_PAM_poly.txt','Delimiter','tab');
 
 p_PAM_poly = sum(idx(:) == 1)/length(idx);
 q_PAM_poly = sum(idx(:) == 2)/length(idx);

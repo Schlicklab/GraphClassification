@@ -40,6 +40,93 @@ c5 = cell2mat(struct2cell(c5)).';
 data = [c1, c2, c3, c4, c5];
 dlmwrite('DualMSE.csv',data,'-append');
 
+%% MSEs for Correctly classified and Misclassified Tree graphs using Linear Regression
+clc;
+clear all;
+
+% Misclassified
+header = {'VertexNo' 'GraphNo' 'Eigens/Linear' 'Squared Eigens/Linear'};
+textHeader = strjoin(header, ',');
+fid = fopen('TreeMisclassifyMSE_lin.csv','w'); 
+fprintf(fid,'%s\n',textHeader);
+fclose(fid);
+
+% write data to end of file
+vertexNo = load('TreeMisclassifyMSE_lin.mat', 'vertexNo');
+vertexNo = cell2mat(struct2cell(vertexNo)).';
+graphNo = load('TreeMisclassifyMSE_lin.mat', 'graphNo');
+graphNo = cell2mat(struct2cell(graphNo)).';
+c3 = load('TreeMisclassifyMSE_lin.mat', 'MSE_lin');
+c3 = cell2mat(struct2cell(c3)).';
+c4 = load('TreeMisclassifyMSE_lin.mat', 'MSE_sq_lin');
+c4 = cell2mat(struct2cell(c4)).';
+data = [vertexNo, graphNo, c3, c4];
+dlmwrite('TreeMisclassifyMSE_lin.csv',data,'-append');
+
+
+% Correct
+header = {'VertexNo' 'GraphNo' 'Eigens/Linear' 'Squared Eigens/Linear'};
+textHeader = strjoin(header, ',');
+fid = fopen('TreeCorrectMSE_lin.csv','w'); 
+fprintf(fid,'%s\n',textHeader);
+fclose(fid);
+
+% write data to end of file
+vertexNo = load('TreeCorrectMSE_lin.mat', 'vertexNo');
+vertexNo = cell2mat(struct2cell(vertexNo)).';
+graphNo = load('TreeCorrectMSE_lin.mat', 'graphNo');
+graphNo = cell2mat(struct2cell(graphNo)).';
+c3 = load('TreeCorrectMSE_lin.mat', 'MSE_lin');
+c3 = cell2mat(struct2cell(c3)).';
+c4 = load('TreeCorrectMSE_lin.mat', 'MSE_sq_lin');
+c4 = cell2mat(struct2cell(c4)).';
+data = [vertexNo, graphNo, c3, c4];
+dlmwrite('TreeCorrectMSE_lin.csv',data,'-append');
+
+
+%% MSEs for Correctly classified and Misclassified Dual graphs using Linear Regression
+clc;
+clear all;
+
+% Misclassified
+header = {'VertexNo' 'GraphNo' 'Eigens/Linear' 'Squared Eigens/Linear'};
+textHeader = strjoin(header, ',');
+fid = fopen('DualMisclassifyMSE_lin.csv','w'); 
+fprintf(fid,'%s\n',textHeader);
+fclose(fid);
+
+% write data to end of file
+vertexNo = load('DualMisclassifyMSE_lin.mat', 'vertexNo');
+vertexNo = cell2mat(struct2cell(vertexNo)).';
+graphNo = load('DualMisclassifyMSE_lin.mat', 'graphNo');
+graphNo = cell2mat(struct2cell(graphNo)).';
+c3 = load('DualMisclassifyMSE_lin.mat', 'MSE_lin');
+c3 = cell2mat(struct2cell(c3)).';
+c4 = load('DualMisclassifyMSE_lin.mat', 'MSE_sq_lin');
+c4 = cell2mat(struct2cell(c4)).';
+data = [vertexNo, graphNo, c3, c4];
+dlmwrite('DualMisclassifyMSE_lin.csv',data,'-append');
+
+
+% Correct
+header = {'VertexNo' 'GraphNo' 'Eigens/Linear' 'Squared Eigens/Linear'};
+textHeader = strjoin(header, ',');
+fid = fopen('DualCorrectMSE_lin.csv','w'); 
+fprintf(fid,'%s\n',textHeader);
+fclose(fid);
+
+% write data to end of file
+vertexNo = load('DualCorrectMSE_lin.mat', 'vertexNo');
+vertexNo = cell2mat(struct2cell(vertexNo)).';
+graphNo = load('DualCorrectMSE_lin.mat', 'graphNo');
+graphNo = cell2mat(struct2cell(graphNo)).';
+c3 = load('DualCorrectMSE_lin.mat', 'MSE_lin');
+c3 = cell2mat(struct2cell(c3)).';
+c4 = load('DualCorrectMSE_lin.mat', 'MSE_sq_lin');
+c4 = cell2mat(struct2cell(c4)).';
+data = [vertexNo, graphNo, c3, c4];
+dlmwrite('DualCorrectMSE_lin.csv',data,'-append');
+
 
 %% Plot MSEs
 clc;
